@@ -1,0 +1,34 @@
+<html>
+<head>
+	<title>Übersicht aller Nachrichten</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		.liste tr:nth-child(even) {
+    		background: lightblue;
+		}
+	</style>
+
+</head>
+<body>
+	<table class="liste">
+	<tr>
+		<th>Absender</th>
+		<th>Empfänger</th>
+		<th>Nachricht</th>
+		<th>Zettel?</th>
+		<th>gesendet</th>
+		<th>abgeholt?</th>
+	</tr>
+	{% for n in nachrichten %}
+	<tr>
+		<td>{{ n.absenderName|escape }}</td>
+		<td>{{ n.recipientNumber|escape }}</td>
+		<td>{{ n.messageText|escape }}</td>
+		<td><input type="checkbox" {% if n.zettel %} checked="checked" {% else %} {% endif %}></td>
+		<td><input type="checkbox" {% if n.gesendet %} checked="checked" {% else %} {% endif %}></td>
+		<td><input type="checkbox" {% if n.ausgeliefert %} checked="checked" {% else %} {% endif %}></td>
+	</tr>
+	{% endfor %}
+	</table>
+</body>
+</html>

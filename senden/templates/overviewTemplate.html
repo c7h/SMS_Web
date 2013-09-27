@@ -12,18 +12,18 @@
 <body>
 	<table class="liste">
 	<tr>
+		<th>Pickup-Code</th>
 		<th>Absender</th>
 		<th>Empfänger</th>
-		<th>Nachricht</th>
 		<th>Zettel?</th>
 		<th>gesendet</th>
 		<th>abgeholt?</th>
 	</tr>
 	{% for n in nachrichten %}
 	<tr>
-		<td>{{ n.absenderName|escape }}</td>
-		<td>{{ n.recipientNumber|escape }}</td>
-		<td>{{ n.messageText|escape }}</td>
+		<td>{{ n.pickupID|escape }}</td>
+		<td>{{ n.senderName|escape }}</td>
+		<td>{{ n.receiverNumber|escape }}</td>
 		<td><input type="checkbox" {% if n.zettel %} checked="checked" {% else %} {% endif %}></td>
 		<td><input type="checkbox" {% if n.gesendet %} checked="checked" {% else %} {% endif %}></td>
 		<td><input type="checkbox" {% if n.ausgeliefert %} checked="checked" {% else %} {% endif %}></td>

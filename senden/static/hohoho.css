@@ -1,40 +1,37 @@
 
 body {
-    background-image: url("background.jpg");
-    background-origin: padding-box;
-    background-position: 0 0;
-    background-repeat: no-repeat;
-    background-size: 100% auto;
     font-family: sans-serif;
     font-weight: bold;
     height: 100%;
+    background-color:transparent !important;
 }
+
+html { 
+  background: url(background.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 .inputbox {
     font-family: sans-serif;
     font-size: 2.5em;
     width: 100%;
-    margin-bottom:5px;
     padding:5px;
 }
 .inputbox:invalid {
     background-color: red;
     color: whitesmoke;
 }
-.button {
-    float: left;
-    font-family: sans-serif;
-    font-size: 2em;
-    margin-right: 20px;
-}
+
 
 .slider {
-	height: 3em;
 	float: left;
 	width: 120px;
 }
 
 .bigtext {
-    float: right;
     font-size: 2.5em;
 }
 #mainID {
@@ -42,7 +39,7 @@ body {
     border-radius: 10px 10px 10px 10px;
     margin: 110px auto 20px;
     overflow: visible;
-    padding: 30px;
+    padding: 10px;
     width: 70%;
 }
 #overlay {
@@ -52,9 +49,9 @@ body {
 }
 #muetze {
     height: 156px;
-    left: -120px;
+    left: -104px;
     position: absolute;
-    top: -132px;
+    top: -117px;
     z-index: 10;
 }
 #bottomimagebar {
@@ -65,8 +62,15 @@ body {
 }
 
 .sponsorlogo {
-	height: 80px;
-	padding-left: 15px;
-	padding-right: 15px;
+	height: 60px;
+	max-width: 200px;
+}
+
+.row {
+	padding: 5px;
+}
+
+.input-group {
+	width: 100%;
 }
 

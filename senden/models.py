@@ -5,15 +5,16 @@ class Message(models.Model):
         
     class Admin:
         pass
-    
-    recipientName = models.CharField(max_length=100) #@TODO: change former absenderName
-    recipientNumber  = models.CharField(max_length=100)
+    messageCreated=models.DateTimeField(auto_now=True)
+    receiverName = models.CharField(max_length=100)
+    receiverMobile  = models.CharField(max_length=100)
+    receiverMail = models.CharField(max_length=100)
+    senderName = models.CharField(max_length=100)
     messageText  = models.TextField("Nachricht")
-    erfasst = models.DateTimeField()
-    sendDate = models.DateTimeField()
-    gesendet = models.BooleanField("verschickt?")
-    ausgeliefert = models.BooleanField("ausgeliefert?")
-    zettel = models.BooleanField("zettel?")
+    delivered = models.BooleanField("ausgeliefert")
+    sent = models.BooleanField("Nachricht gesendet")
+    stickynote = models.BooleanField("stickynote")
+    pickupID = models.CharField(max_length=4)
     
     def __unicode__(self):
-        return "Message for %s" % (self.recipientName)
+        return "Message %s" % (self.pickupID)

@@ -1,5 +1,6 @@
 '''
 User settings for SMS_Web project.
+rename this template to settings_user.py
 
 Created on 19.11.2012
 @author: christoph gerneth
@@ -17,11 +18,13 @@ EMAIL_HOST_PASSWORD = ""
 EMAIL_HOST_USER = ""
 EMAIL_USE_TLS = True
 EMAIL_FROM = '1337@foobar.com'
-EMAIL_SUBJECT = "Ein Nikolaus"
+EMAIL_SUBJECT = ""
 
 DEFAULT_MESSAGE_TEXT = "Jemand hat an dich gedacht und will dir eine Freude machen! Hol dir Heute zwischen 10 und 18 Uhr einen Nikolaus in der Aula ab"
 DEFAULT_RECIPIENT_NUMBER = u''
 DEFAULT_RECIPIENT_NAME = u''
 SUCCESS_MESSAGE = "Vielen Dank! Deine Nachricht wurde erfolgreich verschickt!"
 
+#Length of the unique pickupID for each message
 PICKUP_ID_LEN = 4
+

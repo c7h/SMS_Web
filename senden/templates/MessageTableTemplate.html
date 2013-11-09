@@ -1,0 +1,10 @@
+{% for n in nachrichten %}
+<tr>
+	<td>{{ n.pickupID|escape }}</td>
+	<td>{{ n.senderName|escape }}</td>
+	<td>{{ n.receiverMobile }}</td>
+	<td><input type="checkbox" {% if n.stickynote %} checked="checked" {% else %} {% endif %}></td>
+	<td><input type="checkbox" {% if n.sent %} checked="checked" {% else %} {% endif %}></td>
+	<td><input class="sendCheck" type="checkbox" {% if n.delivered %} checked="checked" {% else %} {% endif %} name="delivered" value={{ n.pickupID|escape }}></td>
+</tr>
+{% endfor %}

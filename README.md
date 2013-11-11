@@ -4,7 +4,7 @@
 Django-based Web interface for sending SMS
 ##overview
 SMS_Web is a simple Service for sending SMS/email. It runs on [Apache Webserver] (http://apache.org/) and others.
-<img src="http://gerneth.info/files/screenshot_01.png" width="800" height=auto alt="webinterface" title="default Webinterface of SMS_Web" style="float: right;" />
+<img src="http://gerneth.info/files/unicef_2.png" width="800" height=auto alt="webinterface" title="default Webinterface of SMS_Web" style="float: right;" />
 ##main idea
 I'm a volunteer member at our local UNICEF university group.
 The original intention was to create an interface, at which students can send messages to a fellow student to inform them, that he/she received a little present. (we got some Chocolate form our Sponsor).

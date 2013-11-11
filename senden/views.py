@@ -1,12 +1,13 @@
 
 from django.http import HttpResponse
 
-from django.template import Context, loader
+from django.template import Context
 from django.shortcuts import render_to_response
 
 from django.core.context_processors import csrf
 from django.core.mail import send_mail
 from django.core.exceptions import ObjectDoesNotExist
+from django.core import serializers
 
 from SMS_Web.senden.models import Message
 from SMS_Web.senden import sipgate_sms
@@ -20,11 +21,27 @@ def tableview(request):
     '''
     display an overview of all messages
     '''
-    template = loader.get_template("overviewTemplate.html")
+    
     context = Context({"nachrichten" : Message.objects.all()})
-    return HttpResponse(template.render(context))
+    context.update(csrf(request))
+    return render_to_response("overviewTemplate.html", context)
 
+def toggleMessageSend(request, pickupID):
+    isChecked = True if request.POST.get("delivered") == "true" else False    
+    message = getMessageByPickupID(pickupID)
+    if message != None:
+        message.delivered = isChecked
+        message.save()
+        data = '{"status": "ok"}'
+    else:
+        data = '{"status": "error"}'
+        
+    return HttpResponse(data, mimetype='application/json')
 
+def messageTable(request):
+    data = serializers.serialize("json", Message.objects.all())
+    return HttpResponse(data, mimetype='application/json')
+    
 def SendSMS(request):
     returnValues =   {"fehler": "",
                       "success": "",
@@ -158,6 +175,8 @@ def sendMail(messageText, receiverMailAddress, pickupID):
     except Exception as e:
         raise SendFailedException(e.message)
 
+
+
 def generateUniquePickupID(length=4):
     charset = ("A", "B", "C", "D", "E", "F", "G", "H", "K", "L", "M", "O", "P", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
     sequence = ''.join(random.choice(charset) for x in range(length))
@@ -168,6 +187,15 @@ def generateUniquePickupID(length=4):
     else:
         sequence = generateUniquePickupID(length=length)
 
+def getMessageByPickupID(pickupID):
+    querySet = Message.objects.filter(pickupID=pickupID)
+    r = list(querySet[:1])
+    if r:
+        return r[0]
+    return None
+
+
+    
 class WrongInputException(Exception):
     pass
 

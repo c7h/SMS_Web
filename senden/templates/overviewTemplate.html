@@ -2,33 +2,156 @@
 <head>
 	<title>Übersicht aller Nachrichten</title>
 	<meta charset="utf-8">
+	
+	<!-- JQuery min -->
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	
 	<style type="text/css">
 		.liste tr:nth-child(even) {
     		background: lightblue;
 		}
+		
+		td {
+    		width: 16.6%;
+		}
+		
+		table {
+    		width: 100%;
+		}
+		
+		.headline {
+   			 font-weight: bold;
+		}
+		
 	</style>
+	
+	<script type="text/javascript">
+
+	$(document).ready(function() {
+
+	
+		//load csrftoken from cookie
+		function getCookie(name) {
+			var cookieValue = null;
+			if (document.cookie && document.cookie != '') {
+				var cookies = document.cookie.split(';');
+				for (var i = 0; i < cookies.length; i++) {
+				    var cookie = jQuery.trim(cookies[i]);
+				    // Does this cookie string begin with the name we want?
+				    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+				        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+				        break;
+				    }
+				}
+			}
+			return cookieValue;
+		}
+		var csrftoken = getCookie('csrftoken');
+
+		//Ajax toggle sendMessage Check
+		$(".sendCheck").bind('change', function(){
+		  
+			$.ajax({
+ 			  beforeSend: function(xhr){xhr.setRequestHeader('X-CSRFToken', csrftoken);},
+			  url: '/overview/'+this.value+'/toggle',
+			  type: 'POST',
+			  data: {"delivered": this.checked}
+			});
+
+		});
+
+
+
+		/*
+		//load table in background
+		$.getJSON("/overview/all" , function(data) {
+
+			$.each(data, function() {
+				
+				var fields = this["fields"];
+				var $row = $('<tr></tr>', {id: fields["pickupID"]});
+
+				var $pickupID = $('<td></td>').text(fields["pickupID"]);
+				var $senderName = $('<td></td>').text(fields["senderName"]);
+				var $receiver = $('<td></td>').text(fields["receiverMobile"]+fields["receiverMail"]);
+				var $zettel = $('<td></td>')
+					.append($('<input></input>', {type: "checkbox", checked: "checked"}));
+				var $sent =  $('<td></td>')
+					.append($('<input></input>', {type: "checkbox", checked: "checked"}));
+				var $delivered = $('<td></td>')
+					.append($('<input></input>',   {type: "checkbox", 
+													name: "delivered", 
+													value: fields["pickupID"], 
+													checked: "checked"}));
+				$row.append($pickupID, $senderName, $receiver, $zettel, $sent, $delivered);
+				$('#table').append($row);          
+			})
+			
+		});
+		*/
+		
+
+	
+		
+	
+		//suchbare Tabelle
+		var $rows = $('#table tr');
+		$('#search').keyup(function() {
+		    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+		    
+		    $rows.show().filter(function() {
+		        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+		        return !~text.indexOf(val);
+		    }).hide();
+		});
+
+	
+	});
+
+	
+	 //quick reload workaround
+	 var time = new Date().getTime();
+     $(document.body).bind("keypress", function(e) {
+         time = new Date().getTime();
+     });
+
+     function refresh() {
+         if(new Date().getTime() - time >= 30000) 
+             window.location.reload(true);
+         else 
+             setTimeout(refresh, 10000);
+     }
+     setTimeout(refresh, 10000);
+
+	</script>
 
 </head>
 <body>
-	<table class="liste">
-	<tr>
-		<th>Pickup-Code</th>
-		<th>Absender</th>
-		<th>Empfänger</th>
-		<th>Zettel?</th>
-		<th>gesendet</th>
-		<th>abgeholt?</th>
+	<input type="text" id="search" placeholder="Type to search">
+	<table class="headline">
+		<tr>
+			<td>Pickup-Code</td>
+			<td>Absender</td>
+			<td>Empfänger</td>
+			<td>Zettel?</td>
+			<td>gesendet</td>
+			<td>abgeholt?</td>
 	</tr>
+	</table>
+	
+	<table class="liste" id="table">
+	
 	{% for n in nachrichten %}
 	<tr>
 		<td>{{ n.pickupID|escape }}</td>
 		<td>{{ n.senderName|escape }}</td>
-		<td>{{ n.receiverNumber|escape }}</td>
-		<td><input type="checkbox" {% if n.zettel %} checked="checked" {% else %} {% endif %}></td>
-		<td><input type="checkbox" {% if n.gesendet %} checked="checked" {% else %} {% endif %}></td>
-		<td><input type="checkbox" {% if n.ausgeliefert %} checked="checked" {% else %} {% endif %}></td>
+		<td>{{ n.receiverMobile }}{{ n.receiverMail }}</td>
+		<td><input type="checkbox" {% if n.stickynote %} checked="checked" {% else %} {% endif %}></td>
+		<td><input type="checkbox" {% if n.sent %} checked="checked" {% else %} {% endif %}></td>
+		<td><input class="sendCheck" type="checkbox" {% if n.delivered %} checked="checked" {% else %} {% endif %} name="delivered" value={{ n.pickupID|escape }}></td>
 	</tr>
 	{% endfor %}
+
 	</table>
 </body>
 </html>

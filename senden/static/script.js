@@ -1,11 +1,4 @@
-function TextCounter () {
 
-    var leftchars = document.getElementById("leftcharsID");
-    var textbox = document.getElementById("messageID");
-    
-    leftchars.innerHTML = (160 - textbox.value.length);
-
-}
 
 function masterOnload() {
     TextCounter();

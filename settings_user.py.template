@@ -25,6 +25,11 @@ DEFAULT_RECIPIENT_NUMBER = u''
 DEFAULT_RECIPIENT_NAME = u''
 SUCCESS_MESSAGE = "Vielen Dank! Deine Nachricht wurde erfolgreich verschickt!"
 
+#message-length settings:
 #Length of the unique pickupID for each message
 PICKUP_ID_LEN = 4
+SMS_MESSAGE_LEN = 160
+SEPERATOR = " - "
+MAX_TEXT_LEN = SMS_MESSAGE_LEN-len(SEPERATOR)-PICKUP_ID_LEN
+
 

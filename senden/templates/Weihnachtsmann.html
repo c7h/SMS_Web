@@ -21,6 +21,16 @@
 	<script src="https://raw.github.com/tdreyno/iphone-style-checkboxes/v1/jquery/iphone-style-checkboxes.js" type="text/javascript" charset="utf-8"></script>
 	<link rel="stylesheet" href="../static/iphoneslider/style.css" type="text/css" media="screen" charset="utf-8" />
 	<script type="text/javascript">
+
+		function TextCounter () {
+
+			var leftchars = document.getElementById("leftcharsID");
+			var textbox = document.getElementById("messageID");
+
+			leftchars.innerHTML = ( {{ maxTextLength }} - textbox.value.length);
+
+		}
+
 		$(document).ready(function() {
 			$('.slider :checkbox').iphoneStyle({
 			checkedLabel: 'JA',
@@ -87,7 +97,7 @@
             </div>
 			<div class="row">
 				<div class="col-md-12">
-            		<Textarea cols="10" rows="4" maxlength="160" id="messageID" class="inputbox" oninput="TextCounter()" name="messageText">{{ messageText }}</Textarea>
+            		<Textarea cols="10" rows="4" maxlength=" {{ maxTextLength }} " id="messageID" class="inputbox" oninput="TextCounter()" name="messageText">{{ messageText }}</Textarea>
 				</div>
 			</div>
 			<div class="row">

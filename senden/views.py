@@ -11,10 +11,11 @@ from django.core import serializers
 
 from SMS_Web.senden.models import Message
 from SMS_Web.senden import sipgate_sms
-from SMS_Web.settings import SUCCESS_MESSAGE, DEFAULT_MESSAGE_TEXT, DEFAULT_RECIPIENT_NAME, DEFAULT_RECIPIENT_NUMBER, EMAIL_FROM, EMAIL_SUBJECT, PICKUP_ID_LEN
+from SMS_Web.settings import SUCCESS_MESSAGE, DEFAULT_MESSAGE_TEXT, DEFAULT_RECIPIENT_NAME, DEFAULT_RECIPIENT_NUMBER, EMAIL_FROM, EMAIL_SUBJECT, PICKUP_ID_LEN, SEPERATOR, MAX_TEXT_LEN
 
 import re
 import random
+
 
 
 def tableview(request):
@@ -47,11 +48,13 @@ def SendSMS(request):
                       "success": "",
                       "messageText": DEFAULT_MESSAGE_TEXT,
                       "receiverField": DEFAULT_RECIPIENT_NUMBER,
-                      "senderName": DEFAULT_RECIPIENT_NAME
+                      "senderName": DEFAULT_RECIPIENT_NAME,
+                      "maxTextLength": MAX_TEXT_LEN,
                       }
     
 
     def renderError(error_message):
+        #TODO: set old Sender
         returnValues["fehler"] = error_message
         returnValues.update(csrf(request))
         return render_to_response("Weihnachtsmann.html", returnValues)
@@ -120,7 +123,7 @@ def getPostparamsFromSendRequest(requestObject):
     return receivedPostParameter
 
 def checkParamaterPlausibility(postParameters):
-    if len(postParameters["text"])> 160-(PICKUP_ID_LEN+3):
+    if len(postParameters["text"])> MAX_TEXT_LEN:
         raise WrongInputException("Nachricht zu lang")
 
 
@@ -157,7 +160,7 @@ def sendMessage(message):
         
 
 def sendSMS(messageText, receiverNumber, pickupID):
-    messageText = " - ".join([messageText, pickupID])
+    messageText = SEPERATOR.join([messageText, pickupID])
     try:
         sipgate_sms.sendSMS(messageText, receiverNumber)
     except Exception as e:

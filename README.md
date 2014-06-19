@@ -22,7 +22,7 @@ The original intention was to create an interface, at which students can send me
   7. this should be marked in the database, so you keep track of the whole thing.
 
 ##dependencies:
-~~you will need this [sipage api] (https://github.com/pklaus/python-sipgate-xmlrpc) ~~ now included :+1:
+~~you will need this [sipage api] (https://github.com/pklaus/python-sipgate-xmlrpc)~~
 The software is tested and known to work well on Python 2.7.1 on GNU/Ubuntu 12.10
 
 ##configuration

@@ -4,7 +4,7 @@
 Django-based Web interface for sending SMS
 ##overview
 SMS_Web is a simple Service for sending SMS/email. It runs on [Apache Webserver] (http://apache.org/) and others.
-<img src="http://gerneth.info/files/unicef_2.png" width="800" height=auto alt="webinterface" title="default Webinterface of SMS_Web" style="float: right;" />
+![screenshot web](http://gerneth.info/files/unicef_2.png" width="800" height=auto alt="webinterface" title="default Webinterface of SMS_Web)
 ##main idea
 I'm a volunteer member at our local UNICEF university group.
 The original intention was to create an interface, at which students can send messages to a fellow student to inform them, that he/she received a little present. (we got some Chocolate form our Sponsor).
@@ -17,13 +17,17 @@ The original intention was to create an interface, at which students can send me
   3. sender will donate some money - as much as he wants.
   4. every message is logged in a database.
   5. the recipient will receive a message
-<img src="http://gerneth.info/files/screenshot_02.png" width=300px height=auto alt="webinterface" title="default Webinterface of SMS_Web" style="float: right;" />
+![sms](http://gerneth.info/files/screenshot_02.png" width=300px height=auto alt="webinterface" title="default Webinterface of SMS_Web)
   6. the recipient will pick up his present at our stand
   7. this should be marked in the database, so you keep track of the whole thing.
 
+
+![in action](https://www.dropbox.com/s/t44fpyhdcllxgf0/2013-12-06%2011.42.56.jpg?dl=1)
+
+
 ##dependencies:
 ~~you will need this [sipage api] (https://github.com/pklaus/python-sipgate-xmlrpc)~~
-The software is tested and known to work well on Python 2.7.1 on GNU/Ubuntu 12.10
+The software is tested and known to work well on Python 2.7.1 on GNU/Ubuntu 12.10 with Django 1.3. I'm working on it to get in running on Django 1.7.x
 
 ##configuration
   1. edit `settings_user.py`. in order to get the software working, you need a [Sipgate account] (http://sipgate.de)

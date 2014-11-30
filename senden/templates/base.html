@@ -1,0 +1,77 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>SMS_Web2 - {% block title %}Sending Messages via Web{% endblock %}</title>
+    
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="{% static 'hohoho.css' %}" type="text/css" />
+
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+	<!-- JQuery min -->
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	
+	<!-- Alert messages -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.alert').hide(function(){
+				$(this).fadeIn().delay({{ message_display_time }}*1000).fadeOut();
+			});
+		});
+	</script>
+
+	{# additional scripts #}
+	<script type="text/javascript">
+		{% block scripts %}{% endblock %}
+	</script>
+
+	{# additional css #}
+	<style type="text/css">
+		{% block css %}{% endblock %}
+	</style>
+</head>
+
+<body onload="masterOnload()"> 
+    <div id="mainID">
+	    <div id="overlay">
+	    	<img src="{% static "img/muetze.png" %}" id="muetze"></img>
+	    </div>
+    
+    	{% block content %}
+
+		<div class="row">
+			<div class="col-md-12">
+				
+	        	<div class="alert alert-danger"> <strong>no content...</strong> </div>
+				
+			</div>
+		</div>
+
+        {% endblock %}
+
+    </div> 
+
+
+    <div  id="bottomimagebar" class="row">
+    	{% block bottombar %}
+    	<div class="col-md-12">
+    		<a>inhalt hier...</a>
+    	</div>
+    	{% endblock %}
+    </div>
+</body>
+
+</html>

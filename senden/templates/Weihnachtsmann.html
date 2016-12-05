@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load staticfiles %}
+{% load static %}
 
 {% block title %}Weihnachtsmann{% endblock %}
 
@@ -87,19 +87,15 @@
 
 
 {% block content %}    
-<form id="form1" method="post" action=".">{% csrf_token %}
+<form id="form1" method="post" action="?message_send">{% csrf_token %}
 
 
-	{% if message %}
-	<div class="row">
-		<div class="col-md-12">
-            	<div class="alert alert-{{ state }}"> 
-            		{% autoescape off %}
-            		<strong>{{ message }}</strong>
-            		{% endautoescape %}
-            	</div>
-		</div>
-	</div>
+	{% if fehler %}
+	<div class="alert alert-danger" id='error_field'> <strong>{{ fehler }} </strong> </div>
+	{% else %}
+	{% if success %}
+	<div class="alert alert-success" id='success_field'> <strong> {{ success }} </strong></div>
+	{% endif %}
 	{% endif %}
 
 
@@ -113,15 +109,15 @@
 	</div>
 
 	<div class="row" id="optional-fields">
-		<div class="col-md-6">
+		<div class="col-md-8">
 			<div class="input-group input-group-lg">
 			  <span class="input-group-addon glyphicon glyphicon-user"></span>
 			  <input type="text" class="form-control input-lg" placeholder="Absendername" name="senderName">
 			</div>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-4">
 			<span class="button-checkbox">
-        		<button type="button" class="btn btn-lg" data-color="primary">Nachricht</button>
+        		<button type="button" class="btn btn-lg btn-block" data-color="primary">Nachricht</button>
         		<input type="checkbox" name="zettel" class='hidden'/>
     		</span>
 		</div>
@@ -153,16 +149,13 @@
 
 
 {% block bottombar %}
-	<div class="col-md-3">
-		<img src="{% static 'img/logo_01.svg' %}" class="sponsorlogo"/>
+	<div class="col-md-4">
+		<img src="{% static 'img/logo_01_w.gif' %}" class="sponsorlogo"/>
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-4">
 		<img src="{% static 'img/sponsor_01.jpg' %}" class="sponsorlogo"/>
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-4">
 		<img src="{% static 'img/sponsor_02.png' %}" class="sponsorlogo"/>
-	</div>
-	<div class="col-md-3">
-		<img src="{% static 'img/sponsor_03.jpg' %}" class="sponsorlogo"/>
 	</div>
 {% endblock %}

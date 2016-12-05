@@ -13,7 +13,7 @@ urlpatterns = patterns('',
     url(r'^overview/(?P<pickupID>\w+)/toggle', 'SMS_Web.senden.views.toggleMessageSend'),
     url(r'^overview/all', 'SMS_Web.senden.views.messageTable'),
     url(r'^$',         'SMS_Web.senden.views.SendSMS'),
-    
+    url(r'^dashboard$', 'SMS_Web.senden.views.zusammenfassung'),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

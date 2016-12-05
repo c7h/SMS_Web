@@ -28,7 +28,8 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.alert').hide(function(){
-				$(this).fadeIn().delay({{ message_display_time }}*1000).fadeOut();
+				$(this).fadeIn('fast').delay(5000).fadeOut('slow'); 
+				// show message for 5 seconds
 			});
 		});
 	</script>

@@ -24,4 +24,3 @@ function resetAction() {
     //form1.reset();
     //TextCounter();
 }
-

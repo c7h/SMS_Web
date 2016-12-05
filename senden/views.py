@@ -15,6 +15,7 @@ from SMS_Web.settings import SUCCESS_MESSAGE, DEFAULT_MESSAGE_TEXT, DEFAULT_RECI
 
 import re
 import random
+from datetime import datetime
 
 
 
@@ -42,7 +43,16 @@ def toggleMessageSend(request, pickupID):
 def messageTable(request):
     data = serializers.serialize("json", Message.objects.all())
     return HttpResponse(data, mimetype='application/json')
-    
+
+def zusammenfassung(request):
+    return render_to_response(
+        'zusammenfassung.html', 
+        {
+            'messages': Message.objects.all(),
+            'message_today': Message.objects.filter(messageCreated=datetime.today())
+        }
+    )
+ 
 def SendSMS(request):
     returnValues =   {"fehler": "",
                       "success": "",
@@ -153,6 +163,7 @@ def saveMessage(messageObject):
 
 def sendMessage(message):
     '''factory-method'''
+    print "sending message", message
     if message.receiverMail == "" and isPhoneNumber(message.receiverMobile):
         sendSMS(message.messageText, message.receiverMobile, message.pickupID)
     elif isMailAddress(message.receiverMail):
@@ -177,6 +188,7 @@ def sendMail(messageText, receiverMailAddress, pickupID):
                   )
     except Exception as e:
         raise SendFailedException(e.message)
+    print "mail to %s  sent" % receiverMailAddress
 
 
 

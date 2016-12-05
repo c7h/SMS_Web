@@ -1,0 +1,8 @@
+{
+  "name": "SMSWeb",
+  "description": "UNICEF Project to send chocolate santas using SMS",
+  "image": "heroku/python",
+  "repository": "https://github.com/c7h/SMS_Web",
+  "keywords": ["python", "django" ],
+  "addons": [ "heroku-postgresql" ]
+}

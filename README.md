@@ -1,44 +1,53 @@
-#SMS_Web
+# SMS_Web ~ Secret Santa!
 =======
 
-Django-based Web interface for sending SMS
-##overview
-SMS_Web is a simple Service for sending SMS/email. It runs on [Apache Webserver] (http://apache.org/) and others.
-![screenshot web](http://gerneth.info/files/unicef_2.png)
-##main idea
+Kiosk like service for sending anonymous SMS messages with the goal to surprise your friends with a cocolate santa!
+
+![screenshot web](http://www.gerneth.info/wp-content/uploads/2016/12/Nikolaus_main.png)
+
+## main idea
 I'm a volunteer member at our local UNICEF university group.
-The original intention was to create an interface, at which students can send messages to a fellow student to inform them, that he/she received a little present. (we got some Chocolate form our Sponsor).
-  1. Student wants to send a Chocolate-Santa to a classmate.
-  2. types in 
-    - name of the lucky recipient
-    - the mobile-number / email
+The original intention was to create a kiosk like interface, which students can use to send anonymous messages to a fellow student and inform them, that he or she just received a little present (we got some chocolate form our sponsor). Let's assume you want to suprise your close friend - she's still stuck in a boring class about business administration.
+
+  1. Go to the UNICEF stand in the hallway, say hello to the people in the unicef shirts and type in the kiosk system:
+    - the name of the lucky recipient
+    - the mobile-number or email address
     - a short message
-    - wish a personal message pinned at the Chocolate-Santa?
-  3. sender will donate some money - as much as he wants.
-  4. every message is logged in a database.
-  5. the recipient will receive a message
-![sms](http://gerneth.info/files/screenshot_02.png)
-  6. the recipient will pick up his present at our stand
-  7. this should be marked in the database, so you keep track of the whole thing.
+  2. Check the checkbox if you want to add a personal message pinned to the Chocolate-Santa
+  3. Be kind and maybe donate some coins you found in your pocket (because there will always be change for the bar visit the night before and who puts change back in the wallet anyway)
+  4. Every message will be logged in a database, but only be marked as 'sent' when we know the message was sent out successfully.
+  5. She will receive the message via SMS or email including a pickup code! This message is anonymous and will not contain the name field. Even if you entered your name in the sender-field.
+  6. She will pick up her present at the UNICEF stand in the hallway. Therefore she tells the people in the blue UNICEF shirts her pickup ID (It's the last 4 digits of the SMS)
+  7. They will then type the ID in the searchfield and set the checkbox 'delivered'. TADAAAA: you just sent an anonymous secret chocolate santa!
 
+Every message sent out contains a 4 digit pickup code (the lenght is configurable btw). 
+![overview](http://www.gerneth.info/wp-content/uploads/2016/12/Nikolaus_management.png)
 
-![in action](https://www.dropbox.com/s/t44fpyhdcllxgf0/2013-12-06%2011.42.56.jpg?dl=1)
+This is the Dashboard. It's just a little gimick to show some statistics. I might improve it for further usage.
+![dashboard](http://www.gerneth.info/wp-content/uploads/2016/12/Nikolaus_stats.png)
 
+## requirements:
+In order to send SMS messages, you need a [Sipgate account](http://sipgate.de) with some credit. Otherwise you might only be able to send out emails.
 
-##dependencies:
-~~you will need this [sipage api] (https://github.com/pklaus/python-sipgate-xmlrpc)~~
-The software is tested and known to work well on Python 2.7.1 on GNU/Ubuntu 12.10 with Django 1.3. I'm working on it to get in running on Django 1.7.x
-
-##configuration
-  1. edit `settings_user.py`. in order to get the software working, you need a [Sipgate account] (http://sipgate.de)
-
+## configuration
+  1. have a look into setting_user.py. You can modify the behaviour in production via setting environment variables.
   2. in `settings.py`
     - edit `DATABASES`
     - edit `SECRET_KEY` to some unique
 
-##test-run on localhost
-1. go to working dir.
-2. `python manage.py syncd` this will create a database
-3. `python manage.py runserver` or `python manage.py runserver 0.0.0.0:8000`  .than you will be able to reach you server from any machine in you network.
-4. go to browser `http://localhost:8000`
+## test-run on localhost
+- go to working dir.
+- create a venv and install dependencies: 
+  ```
+  virtualenv venv
+  source venv/bin/activate
+  pip install -r requirements.txt
+  ```
+- setup database: `python SMS_Web/manage.py syncd`
+- start the development server `python SMS_Web/manage.py runserver` 
+  or `python SMS_Web/manage.py runserver 0.0.0.0:8000` to access the development server within your network.
+- go to `http://localhost:8000`
+
+## deploy to heroku
+This project is prepared and configured to work on the heroku cloud. 
 
